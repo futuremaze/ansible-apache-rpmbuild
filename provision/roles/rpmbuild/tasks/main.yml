@@ -4,6 +4,21 @@
     name: "{{ item }}"
     state: latest
   with_items:
+    - "epel-release"
     - "rpm-build"
+    - "autoconf"
+    - "libtool"
+    - "doxygen"
   when: ansible_os_family == 'RedHat'
+
+- name: main / Download sources
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - url: "http://archive.apache.org/dist/apr/apr-1.5.2.tar.bz2"
+      dest: "/tmp"
+
+- name: main / rpmbuild apr
+  command: rpmbuild -tb --clean /tmp/apr-1.5.2.tar.bz2
 ...
