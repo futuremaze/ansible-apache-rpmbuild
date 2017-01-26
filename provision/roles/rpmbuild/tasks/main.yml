@@ -1,0 +1,9 @@
+---
+- name: main / Install rpm-build
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "rpm-build"
+  when: ansible_os_family == 'RedHat'
+...

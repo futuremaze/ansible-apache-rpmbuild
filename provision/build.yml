@@ -1,0 +1,9 @@
+---
+- name: Build rpm of Apache httpd
+  hosts: all
+  become: true
+
+  roles:
+    - name: rpmbuild
+      tags: rpmbuild
+...
