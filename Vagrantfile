@@ -11,4 +11,8 @@ Vagrant.configure("2") do |config|
     config.proxy.https = ENV['https_proxy']
     config.proxy.no_proxy = "localhost,127.0.0.1"
   end
+
+  config.vm.provision "ansible_local" do | ansible |
+    ansible.playbook = "provision/build.yml"
+  end
 end
