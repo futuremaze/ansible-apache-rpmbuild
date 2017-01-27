@@ -12,7 +12,8 @@ This program uses Vagrant to make rpms with Virtualbox and ansible.
 
 ## Usage
     $ git clone https://github.com/futuremaze/ansible-apache-rpmbuild.git
-    $ export http_proxy=http://USERNAME:PASSWORD@PROXY_HOST:PORT # if you need proxy server configuration to connect to the Internet
+    $ vagrant plugin install vagrant-proxyconf # if you need proxy server configuration to connect to the Internet.
+    $ export http_proxy=http://USERNAME:PASSWORD@PROXY_HOST:PORT # It is the same with above.
     $ vagrant up
     $ vagrant halt
     $ cp ./rpmbuild /path/to
