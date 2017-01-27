@@ -20,7 +20,7 @@ This program uses Vagrant to make rpms with Virtualbox and ansible.
 
 ## Licence
 
-[MIT](https://github.com/futuremaze/ansible-apache-rpmbuild/master/LICENCE)
+[MIT](https://github.com/futuremaze/ansible-apache-rpmbuild/blob/master/LICENSE)
 
 ## Author
 
