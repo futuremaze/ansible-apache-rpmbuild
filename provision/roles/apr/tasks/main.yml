@@ -1,0 +1,26 @@
+---
+- name: main / Download sources
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - url: "http://archive.apache.org/dist/apr/apr-1.5.2.tar.bz2"
+      dest: "/tmp"
+
+- name: main / Build apr package
+  become: no
+  command: rpmbuild -tb --clean /tmp/apr-1.5.2.tar.bz2
+  args:
+    creates: /home/vagrant/rpmbuild/RPMS/x86_64/apr-1.5.2-1.x86_64.rpm
+
+- name: main / Install apr package
+  yum:
+    name: "{{ item }}"
+  when: ansible_os_family == 'RedHat'
+  with_items:
+    - "/home/vagrant/rpmbuild/RPMS/x86_64/apr-1.5.2-1.x86_64.rpm"
+    - "/home/vagrant/rpmbuild/RPMS/x86_64/apr-devel-1.5.2-1.x86_64.rpm"
+
+- name: main / Copy packages
+  command: cp -r /home/vagrant/rpmbuild /vagrant
+...

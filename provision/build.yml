@@ -4,6 +4,14 @@
   become: true
 
   roles:
-    - name: rpmbuild
-      tags: rpmbuild
+    - name: setup
+      tags: setup
+    - name: apr
+      tags: apr
+    - name: apr-util
+      tags: apr-util
+    - name: distcache
+      tags: distcache
+    - name: apache
+      tags: apache
 ...
