@@ -1,0 +1,26 @@
+---
+- name: main / Download sources
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - url: "{{ distcache_url }}"
+      dest: "{{ work_dir }}"
+
+- name: main / Build distcache package
+  become: no
+  command: rpmbuild --rebuild --clean {{ work_dir }}/distcache-{{ distcache_version }}.src.rpm
+  args:
+    creates: /home/vagrant/rpmbuild/RPMS/x86_64/distcache-{{ distcache_version }}.x86_64.rpm
+
+- name: main / Install distcache package
+  yum:
+    name: "{{ item }}"
+  when: ansible_os_family == 'RedHat'
+  with_items:
+    - "/home/vagrant/rpmbuild/RPMS/x86_64/distcache-{{ distcache_version }}.x86_64.rpm"
+    - "/home/vagrant/rpmbuild/RPMS/x86_64/distcache-devel-{{ distcache_version }}.x86_64.rpm"
+
+- name: main / Copy packages
+  command: cp -r /home/vagrant/rpmbuild /vagrant
+...

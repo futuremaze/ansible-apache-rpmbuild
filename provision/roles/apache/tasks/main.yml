@@ -1,0 +1,18 @@
+---
+- name: main / Download sources
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - url: "{{ apache_url }}"
+      dest: "{{ work_dir }}"
+
+- name: main / Build Apache package
+  become: no
+  command: rpmbuild -tb --clean --define="__check_files %{nil}" {{ work_dir }}/httpd-{{ apache_version }}.tar.bz2
+  args:
+    creates: /home/vagrant/rpmbuild/RPMS/x86_64/httpd-{{ apache_version }}-1.x86_64.rpm
+
+- name: main / Copy packages
+  command: cp -r /home/vagrant/rpmbuild /vagrant
+...
