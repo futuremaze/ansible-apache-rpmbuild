@@ -5,11 +5,11 @@
     dest: "{{ item.dest }}"
   with_items:
     - url: "https://archive.fedoraproject.org/pub/archive/fedora/linux/releases/18/Everything/source/SRPMS/d/distcache-1.4.5-23.src.rpm"
-      dest: "/tmp"
+      dest: "{{ work_dir }}"
 
 - name: main / Build distcache package
   become: no
-  command: rpmbuild --rebuild --clean /tmp/distcache-1.4.5-23.src.rpm
+  command: rpmbuild --rebuild --clean {{ work_dir }}/distcache-1.4.5-23.src.rpm
   args:
     creates: /home/vagrant/rpmbuild/RPMS/x86_64/distcache-1.4.5-23.x86_64.rpm
 

@@ -5,11 +5,11 @@
     dest: "{{ item.dest }}"
   with_items:
     - url: "http://archive.apache.org/dist/apr/apr-1.5.2.tar.bz2"
-      dest: "/tmp"
+      dest: "{{ work_dir }}"
 
 - name: main / Build apr package
   become: no
-  command: rpmbuild -tb --clean /tmp/apr-1.5.2.tar.bz2
+  command: rpmbuild -tb --clean {{ work_dir }}/apr-1.5.2.tar.bz2
   args:
     creates: /home/vagrant/rpmbuild/RPMS/x86_64/apr-1.5.2-1.x86_64.rpm
 
