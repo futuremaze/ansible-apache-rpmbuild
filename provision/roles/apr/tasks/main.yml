@@ -1,0 +1,26 @@
+---
+- name: main / Download sources
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - url: "{{ apr_url }}"
+      dest: "{{ work_dir }}"
+
+- name: main / Build apr package
+  become: no
+  command: rpmbuild -tb --clean {{ work_dir }}/apr-{{ apr_version }}.tar.bz2
+  args:
+    creates: /home/vagrant/rpmbuild/RPMS/x86_64/apr-{{ apr_version }}-1.x86_64.rpm
+
+- name: main / Install apr package
+  yum:
+    name: "{{ item }}"
+  when: ansible_os_family == 'RedHat'
+  with_items:
+    - "/home/vagrant/rpmbuild/RPMS/x86_64/apr-{{ apr_version }}-1.x86_64.rpm"
+    - "/home/vagrant/rpmbuild/RPMS/x86_64/apr-devel-{{ apr_version }}-1.x86_64.rpm"
+
+- name: main / Copy packages
+  command: cp -r /home/vagrant/rpmbuild /vagrant
+...

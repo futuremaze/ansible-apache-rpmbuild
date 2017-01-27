@@ -1,0 +1,40 @@
+---
+- name: main / Install epel repository
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "epel-release"
+  when: ansible_os_family == 'RedHat'
+
+- name: main / Install rpmbuild
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "rpm-build"
+    - "rpmdevtools"
+    - "autoconf"
+    - "libtool"
+    - "doxygen"
+    - "freetds-devel"
+    - "expat-devel"
+    - "libuuid-devel"
+    - "db4-devel"
+    - "postgresql-devel"
+    - "mysql-devel"
+    - "unixODBC-devel"
+    - "openldap-devel"
+    - "nss-devel"
+    - "mailcap"
+    - "pcre-devel"
+    - "lua-devel"
+    - "libxml2-devel"
+  when: ansible_os_family == 'RedHat'
+
+- name: main / Setup rpmbuild tree
+  become: no
+  command: rpmdev-setuptree
+  args:
+    creates: /home/vagrant/.rpmmacros
+...
