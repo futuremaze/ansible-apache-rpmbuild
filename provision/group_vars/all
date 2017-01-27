@@ -1,3 +1,13 @@
 ---
 work_dir: "/tmp"
+rpmbuild_dir: "/home/vagrant/rpmbuild"
+output_dir: "/vagrant"
+apr_version: "1.5.2"
+apr_url: "http://archive.apache.org/dist/apr/apr-{{ apr_version }}.tar.bz2"
+apr_util_version: "1.5.4"
+apr_util_url: "http://archive.apache.org/dist/apr/apr-util-{{ apr_util_version }}.tar.bz2"
+distcache_version: "1.4.5-23"
+distcache_url: "https://archive.fedoraproject.org/pub/archive/fedora/linux/releases/18/Everything/source/SRPMS/d/distcache-{{ distcache_version }}.src.rpm"
+apache_version: "2.4.25"
+apache_url: "http://archive.apache.org/dist/httpd/httpd-{{ apache_version }}.tar.bz2"
 ...

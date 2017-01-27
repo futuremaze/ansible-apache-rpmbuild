@@ -4,22 +4,22 @@
     url: "{{ item.url }}"
     dest: "{{ item.dest }}"
   with_items:
-    - url: "http://archive.apache.org/dist/apr/apr-util-1.5.4.tar.bz2"
+    - url: "{{ apr_util_url }}"
       dest: "{{ work_dir }}"
 
 - name: main / Build apr-util package
   become: no
-  command: rpmbuild -tb --clean {{ work_dir }}/apr-util-1.5.4.tar.bz2
+  command: rpmbuild -tb --clean {{ work_dir }}/apr-util-{{ apr_util_version }}.tar.bz2
   args:
-    creates: /home/vagrant/rpmbuild/RPMS/x86_64/apr-util-1.5.4-1.x86_64.rpm
+    creates: /home/vagrant/rpmbuild/RPMS/x86_64/apr-util-{{ apr_util_version }}-1.x86_64.rpm
 
 - name: main / Install apr-util package
   yum:
     name: "{{ item }}"
   when: ansible_os_family == 'RedHat'
   with_items:
-    - "/home/vagrant/rpmbuild/RPMS/x86_64/apr-util-1.5.4-1.x86_64.rpm"
-    - "/home/vagrant/rpmbuild/RPMS/x86_64/apr-util-devel-1.5.4-1.x86_64.rpm"
+    - "/home/vagrant/rpmbuild/RPMS/x86_64/apr-util-{{ apr_util_version }}-1.x86_64.rpm"
+    - "/home/vagrant/rpmbuild/RPMS/x86_64/apr-util-devel-{{ apr_util_version }}-1.x86_64.rpm"
 
 - name: main / Copy packages
   command: cp -r /home/vagrant/rpmbuild /vagrant
