@@ -8,7 +8,7 @@ output_dir: "/vagrant"
 apr_version: "1.5.2"
 apr_util_version: "1.5.4"
 distcache_version: "1.4.5-23"
-apache_version: "2.4.25"
+apache_version: "2.4.27"
 
 # Download url
 apr_url: 
