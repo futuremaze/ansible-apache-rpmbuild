@@ -30,6 +30,7 @@
     - "pcre-devel"
     - "lua-devel"
     - "libxml2-devel"
+    - "libselinux-python"
   when: ansible_os_family == 'RedHat'
 
 - name: main / Setup rpmbuild tree
